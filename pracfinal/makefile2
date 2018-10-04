@@ -1,0 +1,27 @@
+all : bin/salvarv2 clean
+
+bin/salvarv2 : obj/miniwin.o obj/particula.o obj/salvargalaxia.o obj/nave.o obj/funciones.o
+	@echo Creando el ejecutable bin/test2...
+	g++ -o bin/salvarv2 $^ -pthread -lX11
+
+obj/salvargalaxia.o : src/salvargalaxia.cpp include/particula.h include/definiciones.h
+	@echo Creando el modulo objeto obj/main.o...
+	g++ -c -I./include -o obj/salvargalaxia.o src/salvargalaxia.cpp
+
+obj/nave.o : src/nave.cpp include/particula.h include/definiciones.h
+	g++ -c -I./include -o obj/nave.o src/nave.cpp
+
+obj/miniwin.o : src/miniwin.cpp include/miniwin.h 
+	@echo Creando el modulo objeto obj/miniwin.o...
+	g++ -c -I./include -o obj/miniwin.o src/miniwin.cpp
+
+obj/particula.o : src/particula.cpp include/particula.h include/definiciones.h
+	@echo Creando el modulo objeto obj/particula.o...
+	g++ -c -I./include -o obj/particula.o src/particula.cpp
+
+obj/funciones.o : src/funciones.cpp include/funciones.h
+	g++ -c -I./include -o obj/funciones.o src/funciones.cpp -std=c++11
+
+clean :
+	@echo Borrando los ficheros .o del directorio obj...
+	rm obj/*.o

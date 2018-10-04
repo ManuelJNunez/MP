@@ -1,0 +1,31 @@
+#!/bin/bash
+
+function _CrearDir
+{
+	if test -e $1; then
+		echo "El archivo ya existe"
+		exit 1
+	else
+		mkdir $1
+	fi
+}
+
+function _ComprArg
+{
+	if (( $1 != 1 )); then
+		echo "Use crear <nombre dir>"
+		exit 1
+	fi
+}
+
+function _CrearSubDir
+{
+	cd $1
+	mkdir obj include src lib bin doc
+	touch makefile
+}
+
+_ComprArg $#
+_CrearDir $1
+_CrearSubDir $1
+
